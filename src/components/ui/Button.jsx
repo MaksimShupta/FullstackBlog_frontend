@@ -1,14 +1,18 @@
-const Button = ({ text, onClick, type = "button", className = "" }) => {
+const Button = ({
+    text,
+    onClick,
+    type = "button",
+    className = "",
+    noBaseClass = false,
+}) => {
     return (
-        <>
-            <button
-                type={type}
-                onClick={onClick}
-                className={`btn ${className}`}
-            >
-                {text}
-            </button>
-        </>
+        <button
+            type={type}
+            onClick={onClick}
+            className={`${noBaseClass ? className : `btn ${className}`}`}
+        >
+            {text}
+        </button>
     );
 };
 

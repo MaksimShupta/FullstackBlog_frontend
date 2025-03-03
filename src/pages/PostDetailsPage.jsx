@@ -1,6 +1,11 @@
+// import { useState } from "react";
 import Button from "../components/ui/Button";
 
 const PostDetailsPage = () => {
+    // const [isModalOpen, setIsModalOpen] = useState(false);
+    // const openModal = () => setIsModalOpen(true);
+    // const closeModal = () => setIsModalOpen(false);
+
     return (
         <div className="w-auto mx-auto p-6">
             <div className="card rounded-lg">
@@ -51,6 +56,7 @@ const PostDetailsPage = () => {
                                 <Button
                                     type="submit"
                                     text="Update Article"
+                                    // onClick={openModal}
                                     className="btn-primary px-6"
                                 />
                             </div>
@@ -58,6 +64,11 @@ const PostDetailsPage = () => {
                     </div>
                 </div>
             </div>
+            {/* <EditArticle
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onConfirm={handleEdit}
+            /> */}
         </div>
     );
 };
