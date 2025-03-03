@@ -15,18 +15,17 @@ const Footer = () => {
         {/* end of left side */}
 
         {/* right side */}
-        <div className="flex flex-row text-lg  mt-5 items-start sm:items-end sm:justify-end text-white sm:mt-0">
-          <p className="mr-4 ">Get in touch:</p>
-          <div className="flex flex-row gap-2 mb-1  ">
+        <div className="flex flex-row text-2xl  mt-5 items-start sm:items-end sm:justify-end text-white sm:mt-0">
+          <p className="mr-4 sm:mb-2">Get in touch:</p>
+          <div className="flex flex-row  gap-2   ">
             <Link to="https://mail.google.com/mail/">
-              <MdOutlineMail />
+              <MdOutlineMail size={50}/>
             </Link>
-            {/* <Link to="https://www.instagram.com/"> */}
-              <FaInstagram />
-            {/* </Link> */}
-
-            <Link to="https://www.facebook.com/">
-              <SlSocialFacebook />
+            <Link to="https://www.instagram.com/">
+              <FaInstagram size={50} />
+            </Link>
+            <Link to="https://www.facebook.com/" >
+              <SlSocialFacebook size={50} />
             </Link>
           </div>
         </div>
