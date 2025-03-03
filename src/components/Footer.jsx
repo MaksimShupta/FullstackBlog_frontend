@@ -1,35 +1,33 @@
-import { FaHandPeace } from "react-icons/fa"; //import FaHandPeace from react-icons/fa
-import { GiCoffeeCup } from "react-icons/gi"; //import GiCoffeeCup from react-icons/gi
-import { GrMagic } from "react-icons/gr"; //import GrMagic from react-icons/gr
+import { MdOutlineMail } from "react-icons/md"; //  import MdOutlineMail from react-icons/md
+import { FaInstagram } from "react-icons/fa"; // import FaInstagram from react-icons/fa
+import { SlSocialFacebook } from "react-icons/sl"; // import SlSocialFacebook from react-icons/sl
+import { Link } from "react-router"; //importing Link from react-router
 const Footer = () => {
   return (
     <footer className=" p-10 bg-primary w-full">
       <div className="container flex flex-col sm:flex-row mx-auto justify-between">
         {/* left side */}
         <div className="">
-          <h3 className=" text-white text-2xl mb-3">Fiction Addiction</h3>
-          <p className="text-white text-xl font-light">
-            Fiction addiction is an irresistible escape into stories, where
-            reality fades and imagination takes over.
-          </p>
-
-          <p className="text-sm font-light mt-10 text-white">
-            © {new Date().getFullYear()} Fiction Addiction - No regrets,just
-            entries.{" "}
+          <p className="text-lg font-light mt-5 text-white">
+            {new Date().getFullYear()} My Fiction Addiction. All right reserved.
           </p>
         </div>
         {/* end of left side */}
 
         {/* right side */}
-        <div className="flex flex-col items-start sm:items-end sm:justify-end text-white mt-10 sm:mt-0">
-          <div className="flex flex-row gap-10  ">
-            <FaHandPeace />
-            <GiCoffeeCup />
-            <GrMagic />
+        <div className="flex flex-row text-2xl  mt-5 items-start sm:items-end sm:justify-end text-white sm:mt-0">
+          <p className="mr-4 sm:mb-2">Get in touch:</p>
+          <div className="flex flex-row  gap-2   ">
+            <Link to="https://mail.google.com/mail/">
+              <MdOutlineMail size={50}/>
+            </Link>
+            <Link to="https://www.instagram.com/">
+              <FaInstagram size={50} />
+            </Link>
+            <Link to="https://www.facebook.com/" >
+              <SlSocialFacebook size={50} />
+            </Link>
           </div>
-          <p className="text-sm font-light mt-10 text-white text-right">
-            Powered by questionable life choices, caffeine & magic.
-          </p>
         </div>
         {/* end of right side */}
       </div>
