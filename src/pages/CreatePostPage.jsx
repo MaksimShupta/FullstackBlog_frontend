@@ -1,3 +1,9 @@
+import Select from "react-select";
+import { CategoryContext } from "../App";
+import { useContext, useState } from "react";
+import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router";
+
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
   const navigate = useNavigate();
