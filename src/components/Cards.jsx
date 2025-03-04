@@ -84,7 +84,7 @@ const Cards = ({ data }) => {
               itemKey={item.id}
               author={item.author}
               title={item.title}
-              date={item.date}
+              date={new Date(item.date).toLocaleDateString("de-DE")}
               category={item.category}
               context={item.context}
               onEdit={() => onEdit(item.id)}
