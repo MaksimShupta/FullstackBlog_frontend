@@ -6,24 +6,32 @@ import { CategoryContext } from "../App";
 //Sketch of cards that will be displayed
 //TODO: Code must be updated and tested
 const Cards = ({ data }) => {
-  const [cards, setCards] = useState({});
+  const [cards, setCards] = useState([]);
   const navigate = useNavigate();
   const [categoryFilter, setCategoryFilter] = useState("");
   const { categories } = useContext(CategoryContext);
   const [filteredCards, setFilteredCards] = useState([]);
 
+  // Ensure categories is not undefined
   const cats = Object.keys(categories || {}).map((key) => ({
     value: key,
     label: categories[key],
   }));
-  useEffect(() => {
-    setCards(data);
-  }, [data]);
-  const arr = data.data;
-  console.log("Cards data: ", arr);
 
+  // Ensure `data` is safely assigned
   useEffect(() => {
-    let filtered = Object.values(cards);
+    if (Array.isArray(data)) {
+      setCards(data);
+    } else if (Array.isArray(data?.data)) {
+      setCards(data.data);
+    } else {
+      setCards([]);
+    }
+  }, [data]);
+
+  // Filter based on category
+  useEffect(() => {
+    let filtered = Array.isArray(cards) ? [...cards] : [];
 
     if (categoryFilter) {
       filtered = filtered.filter((i) => i.category === categoryFilter);
@@ -31,11 +39,16 @@ const Cards = ({ data }) => {
     setFilteredCards(filtered);
   }, [categoryFilter, cards]);
 
+  // Handle deletion
   const onDelete = (key) => {
-    //TODO: update the code later
-    setCards(cards.filter((card) => card.id !== key));
+    setCards((prevCards) =>
+      Array.isArray(prevCards)
+        ? prevCards.filter((card) => card.id !== key)
+        : []
+    );
   };
 
+  // Handle edit navigation
   const onEdit = (key) => {
     if (!key) return;
     navigate(`/edit/${key}`);
@@ -51,8 +64,10 @@ const Cards = ({ data }) => {
             <button
               key={cat.value}
               onClick={() => setCategoryFilter(cat.label)}
-              className="flex items-center bg-white-500 text-white px-4 py-2 rounded-lg hover:bg-white transition"
-            ></button>
+              className="flex items-center bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            >
+              {cat.label}
+            </button>
           ))}
         </div>
       </div>
@@ -62,18 +77,20 @@ const Cards = ({ data }) => {
         id="items-list"
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4"
       >
-        {filteredCards.map((item) => (
-          <Card
-            itemKey={item.id}
-            author={item.author}
-            title={item.title}
-            date={item.date}
-            category={item.category}
-            context={item.context}
-            onEdit={() => onEdit(item.id)}
-            onDelete={() => onDelete(item.id)}
-          />
-        ))}
+        {Array.isArray(filteredCards) &&
+          filteredCards.map((item) => (
+            <Card
+              key={item.id}
+              itemKey={item.id}
+              author={item.author}
+              title={item.title}
+              date={item.date}
+              category={item.category}
+              context={item.context}
+              onEdit={() => onEdit(item.id)}
+              onDelete={() => onDelete(item.id)}
+            />
+          ))}
       </div>
     </div>
   );
