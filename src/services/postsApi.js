@@ -16,7 +16,8 @@ export const getPosts = async () => {
 
 export const getPost = async (id) => {
     try {
-        const response = await fetch(`postsPath/${id}`);
+        const response = await fetch(`${postsPath}/${id}`);
+        console.log("response here", response);
         if (!response.ok) {
             throw new Error(
                 `Error fetching post with id ${id}: ${response.statusText}`
@@ -32,7 +33,7 @@ export const getPost = async (id) => {
 
 export const createPost = async (postData) => {
     try {
-        const response = await fetch("postsPath/posts", {
+        const response = await fetch(`${postsPath}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -52,7 +53,7 @@ export const createPost = async (postData) => {
 
 export const updatePost = async (id, postData) => {
     try {
-        const response = await fetch(`postsPath/${id}`, {
+        const response = await fetch(`${postsPath}/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export const updatePost = async (id, postData) => {
 
 export const deletePost = async (id) => {
     try {
-        const response = await fetch(`postsPath/${id}`, {
+        const response = await fetch(`${postsPath}/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {

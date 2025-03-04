@@ -1,23 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
 import { updatePost } from "../services/postsApi";
+import { useParams } from "react-router";
+import { getPost } from "../services/postsApi.js";
+import EditArticle from "../components/EditArticle.jsx";
 
-const PostDetailsPage = ({ post }) => {
+const PostDetailsPage = () => {
+    const { id } = useParams();
+    const [post, setPost] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const postData = await getPost(id);
+                console.log(postData);
+                setPost(postData);
+            } catch (error) {
+                console.error("Error fetching post:", error);
+            }
+        };
+
+        if (id) {
+            fetchPost();
+        }
+    }, [id]);
+
     const handleEdit = async (updatedData) => {
         try {
-            // Call the updatePost service with the post id and updated data
-            const updatedPost = await updatePost(post.id, updatedData);
+            const updatedPost = await updatePost(id, updatedData);
             console.log("Post updated:", updatedPost);
-            // Optionally update local state to reflect the new data
+
+            setPost(updatedPost);
             closeModal();
         } catch (error) {
             console.error("Error updating post:", error);
-            // Optionally show an error message to the user
         }
+    };
+
+    if (!post) {
+        return <div>Loading...</div>;
+    }
+
+    const formatDate = (dateString) => {
+        const dateObj = new Date(dateString);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
+        const day = String(dateObj.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
     };
 
     return (
@@ -39,7 +71,7 @@ const PostDetailsPage = ({ post }) => {
                                 {post.title}
                             </h2>
                             <p className="text-gray-500 text-sm mb-4">
-                                {post.date} | Article ID {post.id}
+                                {formatDate(post.date)} | Article ID {post.id}
                             </p>
 
                             <p className="text-gray-700 leading-relaxed mb-6 flex-1">
@@ -77,6 +109,7 @@ const PostDetailsPage = ({ post }) => {
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 onConfirm={handleEdit}
+                initialData={post}
             />
         </div>
     );
