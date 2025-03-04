@@ -5,6 +5,7 @@ const postsPath = `${API_BASE_URL}/posts`;
 export const getPosts = async () => {
     try {
         const response = await fetch(postsPath);
+        // console.log("response:", response);
         const data = await response.json();
         console.log("Posts:", data);
         return data;
