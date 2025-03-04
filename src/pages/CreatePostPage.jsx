@@ -1,4 +1,4 @@
-import Button from "../components/ui/Button"; // Importiere Button-Komponente
+import Button from "../components/ui/Button"; 
 
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
