@@ -5,7 +5,7 @@ import { CategoryContext } from "../App";
 
 //Sketch of cards that will be displayed
 //TODO: Code must be updated and tested
-const Cards = () => {
+const Cards = ({ data }) => {
   const [cards, setCards] = useState({});
   const navigate = useNavigate();
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -16,6 +16,11 @@ const Cards = () => {
     value: key,
     label: categories[key],
   }));
+  useEffect(() => {
+    setCards(data);
+  }, [data]);
+  const arr = data.data;
+  console.log("Cards data: ", arr);
 
   useEffect(() => {
     let filtered = Object.values(cards);
@@ -60,10 +65,11 @@ const Cards = () => {
         {filteredCards.map((item) => (
           <Card
             itemKey={item.id}
+            author={item.author}
             title={item.title}
             date={item.date}
             category={item.category}
-            description={item.description}
+            context={item.context}
             onEdit={() => onEdit(item.id)}
             onDelete={() => onDelete(item.id)}
           />
