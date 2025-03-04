@@ -3,10 +3,11 @@ import { useContext } from "react";
 
 const Card = ({
   itemKey,
+  author,
   title,
   date,
   category,
-  description,
+  context,
   onEdit,
   onDelete,
 }) => {
@@ -19,13 +20,16 @@ const Card = ({
         {title}
       </p>
       <div className="flex items-center gap-4">
+        <p className="text-sm">{author}</p>
+      </div>
+      <div className="flex items-center gap-4">
         <p className="text-sm">{date}</p>
       </div>
       <div className="flex items-center gap-4">
         <p className="text-sm">{category}</p>
       </div>
       <div className="flex items-center gap-4">
-        <p className="text-sm">{description}</p>
+        <p className="text-sm">{context}</p>
       </div>
       <div className="flex gap-4 mt-2">
         <button

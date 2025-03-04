@@ -1,8 +1,4 @@
-import Select from "react-select";
-import { CategoryContext } from "../App";
-import { useContext, useState } from "react";
-import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router";
+import Button from "../components/ui/Button"; 
 
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
@@ -12,9 +8,11 @@ const CreatePostPage = () => {
     value: key,
     label: key.toUpperCase(),
   }));
+
   const [form, setForm] = useState({
     title: "",
     date: "",
+    imageUrl: "",
     category: "",
     description: "",
   });
@@ -22,13 +20,19 @@ const CreatePostPage = () => {
   const handleCategoryChange = (selectedOption) => {
     setForm({ ...form, category: selectedOption.value });
   };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //here add the code for saving
+    // Add code here to save inputs
+    navigate("/");
+  };
+
+  const handleCancel = () => {
+    // Navigate back to home page without saving
     navigate("/");
   };
 
@@ -42,16 +46,19 @@ const CreatePostPage = () => {
             id="add-form"
             className="items-center flex flex-col px-4 pb-8 gap-5"
           >
+            {/* Book Title */}
             <label className="input-custom gap-2 w-full">
               <input
                 value={form.title}
                 onChange={handleChange}
                 name="title"
                 className="grow w-full"
-                placeholder="Title"
+                placeholder="Book Title"
                 required
               />
             </label>
+
+            {/* Article publishing date */}
             <label className="input-custom gap-2 w-full">
               <input
                 value={form.date}
@@ -63,6 +70,18 @@ const CreatePostPage = () => {
               />
             </label>
 
+            {/* Image URL */}
+            <label className="input-custom gap-2 w-full">
+              <input
+                value={form.imageUrl}
+                onChange={handleChange}
+                name="imageUrl"
+                className="grow w-full"
+                placeholder="Image URL"
+              />
+            </label>
+
+            {/* Book Genre */}
             <Select
               options={cats}
               placeholder="Select category"
@@ -80,6 +99,7 @@ const CreatePostPage = () => {
               className="w-full"
             />
 
+            {/* Book Details / Description */}
             <label className="textarea-custom gap-2 w-full">
               <textarea
                 value={form.description}
@@ -91,13 +111,22 @@ const CreatePostPage = () => {
               />
             </label>
 
-            <button
-              id="submit-btn"
-              type="submit"
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition"
-            >
-              Add note
-            </button>
+            {/* Submit and Cancel Buttons */}
+            <div className="flex gap-4">
+              {/* Submit Button */}
+              <Button
+                text="Save"
+                onClick={handleSubmit}
+                type="submit"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+              />
+              {/* Cancel Button */}
+              <Button
+                text="Cancel"
+                onClick={handleCancel}
+                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+              />
+            </div>
           </form>
         </div>
       </section>
