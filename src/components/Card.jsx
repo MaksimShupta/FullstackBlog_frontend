@@ -1,6 +1,8 @@
-import { CategoryContext } from "../App";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { CategoryContext } from "../App"; // update path if necessary
+import { deletePost } from "../services/postsApi.js";
+import DeleteArticle from "./DeleteArticle";
 
 const Card = ({
     itemKey,
@@ -9,16 +11,29 @@ const Card = ({
     date,
     category,
     context,
-    onEdit,
     onDelete,
 }) => {
     const { categories } = useContext(CategoryContext);
     const navigate = useNavigate();
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
     console.log("Card:", itemKey);
 
     const onView = (itemKey) => {
-        // Navigate to the post detail page, e.g., /postdetail/:id
         navigate(`/post/${itemKey}`);
+    };
+
+    const handleDelete = async () => {
+        try {
+            // Call the delete service
+            await deletePost(itemKey);
+            // Notify parent component if needed
+            if (onDelete) onDelete(itemKey);
+        } catch (error) {
+            console.error("Failed to delete post:", error);
+        } finally {
+            setShowDeleteModal(false);
+        }
     };
 
     return (
@@ -46,25 +61,19 @@ const Card = ({
                     View
                 </button>
                 <button
-                    className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 w-full md:w-auto"
-                    onClick={() => onEdit(itemKey)}
-                >
-                    Edit
-                </button>
-                <button
                     className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 w-full md:w-auto"
-                    onClick={() => {
-                        console.log("Deleting item with key:", itemKey);
-                        if (itemKey) onDelete(itemKey);
-                        else
-                            console.error(
-                                "itemKey is undefined when calling onDelete"
-                            );
-                    }}
+                    onClick={() => setShowDeleteModal(true)}
                 >
                     Remove
                 </button>
             </div>
+            {showDeleteModal && (
+                <DeleteArticle
+                    title={title}
+                    onConfirm={handleDelete}
+                    onCancel={() => setShowDeleteModal(false)}
+                />
+            )}
         </div>
     );
 };
