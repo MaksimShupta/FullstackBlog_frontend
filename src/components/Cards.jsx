@@ -41,11 +41,28 @@ const Cards = ({ data }) => {
 
   // Handle deletion
   const onDelete = (key) => {
-    setCards((prevCards) =>
-      Array.isArray(prevCards)
-        ? prevCards.filter((card) => card.id !== key)
-        : []
-    );
+    useEffect(() => {
+      const books = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:5000/api/posts/${key.id}`,
+            { method: "DELETE" }
+          );
+          if (!response.ok) {
+            throw new Error("Failed to delete the item!");
+          }
+          setCards((prevCards) =>
+            Array.isArray(prevCards)
+              ? prevCards.filter((card) => card.id !== key)
+              : []
+          );
+          console.log("The item was deleted !");
+        } catch (error) {
+          console.error("Error by deleting data:", error);
+        }
+      };
+      books();
+    }, []);
   };
 
   // Handle edit navigation
