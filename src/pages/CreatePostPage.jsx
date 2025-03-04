@@ -1,3 +1,5 @@
+import Button from "../components/ui/Button"; // Importiere Button-Komponente
+
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ const CreatePostPage = () => {
   const [form, setForm] = useState({
     title: "",
     date: "",
-    imageUrl: "",  // Image URL hinzugefügt
+    imageUrl: "",
     category: "",
     description: "",
   });
@@ -26,6 +28,11 @@ const CreatePostPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add code here to save inputs
+    navigate("/");
+  };
+
+  const handleCancel = () => {
+    // Navigate back to home page without saving
     navigate("/");
   };
 
@@ -68,9 +75,9 @@ const CreatePostPage = () => {
               <input
                 value={form.imageUrl}
                 onChange={handleChange}
-                name="imageUrl"  // Image URL Name
+                name="imageUrl"
                 className="grow w-full"
-                placeholder="Image URL"  // Placeholder text
+                placeholder="Image URL"
               />
             </label>
 
@@ -104,14 +111,22 @@ const CreatePostPage = () => {
               />
             </label>
 
-            {/* Submit */}
-            <button
-              id="submit-btn"
-              type="submit"
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition"
-            >
-              Save
-            </button>
+            {/* Submit and Cancel Buttons */}
+            <div className="flex gap-4">
+              {/* Submit Button */}
+              <Button
+                text="Save"
+                onClick={handleSubmit}
+                type="submit"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+              />
+              {/* Cancel Button */}
+              <Button
+                text="Cancel"
+                onClick={handleCancel}
+                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition"
+              />
+            </div>
           </form>
         </div>
       </section>
