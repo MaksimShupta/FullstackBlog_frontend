@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+// import XXX from 'XXXX'; // import api endpoint here!
 
 export const CategoryContext = createContext();
 
@@ -11,7 +11,7 @@ export const CategoryProvider = ({ children }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories'); // Ersetze '/api/categories' mit deinem tatsächlichen API-Endpunkt
+        const response = await axios.get('/api/categories'); // Replace '/api/categories' with API Endpoint
         setCategories(response.data);
       } catch (err) {
         setError(err);
