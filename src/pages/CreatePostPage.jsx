@@ -18,7 +18,7 @@ const CreatePostPage = () => {
 
   const [form, setForm] = useState({
     title: "",
-    date: currentDate, // Aktuelles Datum als Standardwert
+    date: currentDate, // Current Date as Default
     imageUrl: "",
     category: "",
     description: "",
@@ -34,7 +34,7 @@ const CreatePostPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Hier Logik zum Speichern der Daten einfügen
+    // Add logic to save input data
     navigate("/");
   };
 
@@ -84,7 +84,7 @@ const CreatePostPage = () => {
                 onClick={handleDateIconClick}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
               >
-                &#x1F4C5; {/* Kalender Icon */}
+                &#x1F4C5; {/* Calender Icon */}
               </button>
             </div>
 
