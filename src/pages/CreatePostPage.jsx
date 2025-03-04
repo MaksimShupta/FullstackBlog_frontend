@@ -1,4 +1,9 @@
-import Button from "../components/ui/Button"; 
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import Button from "../components/ui/Button";
+import { CategoryContext } from '../context/CategoryContext';
+import Navbar from '../components/Navbar';
 
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
@@ -9,9 +14,11 @@ const CreatePostPage = () => {
     label: key.toUpperCase(),
   }));
 
+  const currentDate = new Date().toISOString().split("T")[0];
+
   const [form, setForm] = useState({
     title: "",
-    date: "",
+    date: currentDate, // Aktuelles Datum als Standardwert
     imageUrl: "",
     category: "",
     description: "",
@@ -27,13 +34,16 @@ const CreatePostPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add code here to save inputs
+    // Hier Logik zum Speichern der Daten einfügen
     navigate("/");
   };
 
   const handleCancel = () => {
-    // Navigate back to home page without saving
     navigate("/");
+  };
+
+  const handleDateIconClick = () => {
+    document.getElementById("date-input").focus();
   };
 
   return (
@@ -46,7 +56,6 @@ const CreatePostPage = () => {
             id="add-form"
             className="items-center flex flex-col px-4 pb-8 gap-5"
           >
-            {/* Book Title */}
             <label className="input-custom gap-2 w-full">
               <input
                 value={form.title}
@@ -58,19 +67,27 @@ const CreatePostPage = () => {
               />
             </label>
 
-            {/* Article publishing date */}
-            <label className="input-custom gap-2 w-full">
-              <input
-                value={form.date}
-                onChange={handleChange}
-                type="date"
-                name="date"
-                className="grow w-full"
-                required
-              />
-            </label>
+            <div className="relative w-full">
+              <label className="input-custom gap-2 w-full">
+                <input
+                  id="date-input"
+                  value={form.date}
+                  onChange={handleChange}
+                  type="date"
+                  name="date"
+                  className="grow w-full"
+                  required
+                />
+              </label>
+              <button
+                type="button"
+                onClick={handleDateIconClick}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+              >
+                &#x1F4C5; {/* Kalender Icon */}
+              </button>
+            </div>
 
-            {/* Image URL */}
             <label className="input-custom gap-2 w-full">
               <input
                 value={form.imageUrl}
@@ -81,7 +98,6 @@ const CreatePostPage = () => {
               />
             </label>
 
-            {/* Book Genre */}
             <Select
               options={cats}
               placeholder="Select category"
@@ -99,7 +115,6 @@ const CreatePostPage = () => {
               className="w-full"
             />
 
-            {/* Book Details / Description */}
             <label className="textarea-custom gap-2 w-full">
               <textarea
                 value={form.description}
@@ -111,16 +126,13 @@ const CreatePostPage = () => {
               />
             </label>
 
-            {/* Submit and Cancel Buttons */}
             <div className="flex gap-4">
-              {/* Submit Button */}
               <Button
                 text="Save"
                 onClick={handleSubmit}
                 type="submit"
                 className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition"
               />
-              {/* Cancel Button */}
               <Button
                 text="Cancel"
                 onClick={handleCancel}
