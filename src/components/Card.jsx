@@ -25,9 +25,7 @@ const Card = ({
 
     const handleDelete = async () => {
         try {
-            // Call the delete service
             await deletePost(itemKey);
-            // Notify parent component if needed
             if (onDelete) onDelete(itemKey);
         } catch (error) {
             console.error("Failed to delete post:", error);
@@ -67,13 +65,12 @@ const Card = ({
                     Remove
                 </button>
             </div>
-            {showDeleteModal && (
-                <DeleteArticle
-                    title={title}
-                    onConfirm={handleDelete}
-                    onCancel={() => setShowDeleteModal(false)}
-                />
-            )}
+            <DeleteArticle
+                isOpen={showDeleteModal}
+                title={title}
+                onConfirm={handleDelete}
+                onClose={() => setShowDeleteModal(false)}
+            />
         </div>
     );
 };
