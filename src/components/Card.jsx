@@ -9,7 +9,6 @@ const Card = ({
     date,
     category,
     context,
-    onEdit,
     onDelete,
 }) => {
     const { categories } = useContext(CategoryContext);
@@ -44,12 +43,6 @@ const Card = ({
                     onClick={() => onView(itemKey)}
                 >
                     View
-                </button>
-                <button
-                    className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 w-full md:w-auto"
-                    onClick={() => onEdit(itemKey)}
-                >
-                    Edit
                 </button>
                 <button
                     className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 w-full md:w-auto"

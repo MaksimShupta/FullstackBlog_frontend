@@ -8,7 +8,7 @@ function DeleteArticle({ isOpen, onClose, onConfirm }) {
                 className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-md transition-opacity duration-300"
                 onClick={onClose}
             ></div>
-            <div className="bg-indigo-800 p-6 rounded-xl shadow-2xl z-10 max-w-md w-full transform transition-all duration-300 scale-100 opacity-100 animate-fade-in relative">
+            <div className="bg-[#A0C878] p-6 rounded-xl shadow-2xl z-10 max-w-md w-full transform transition-all duration-300 scale-100 opacity-100 animate-fade-in relative">
                 <Button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-gray-400 hover:text-white p-2 bg-transparent hover:bg-transparent border-none shadow-none"
@@ -17,7 +17,7 @@ function DeleteArticle({ isOpen, onClose, onConfirm }) {
 
                 <div className="flex justify-center mb-4">
                     <svg
-                        className="w-12 h-12 text-red-500"
+                        className="w-12 h-12 text-red-700"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -31,13 +31,13 @@ function DeleteArticle({ isOpen, onClose, onConfirm }) {
                     </svg>
                 </div>
 
-                <h2 className="text-xl font-bold text-white text-center">
+                <h2 className="text-xl font-bold text-[#708C54] text-center">
                     Confirm Deletion
                 </h2>
-                <p className="text-gray-300 text-center mt-2">
-                    Are you sure you want to delete this blog article?
+                <p className="text-[#586046] text-center mt-2">
+                    Are you sure you want to delete this?
                 </p>
-                <p className="text-red-400 text-sm text-center mt-2">
+                <p className="text-red-700 text-sm text-center mt-2">
                     This action cannot be undone.
                 </p>
 
