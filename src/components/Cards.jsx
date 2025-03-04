@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Card from "../components/Card";
 import { useNavigate } from "react-router";
 import { CategoryContext } from "../App";
+import { deletePost } from "../services/postsApi";
 
 //Sketch of cards that will be displayed
 //TODO: Code must be updated and tested
@@ -40,29 +41,18 @@ const Cards = ({ data }) => {
   }, [categoryFilter, cards]);
 
   // Handle deletion
-  const onDelete = (key) => {
-    useEffect(() => {
-      const books = async () => {
-        try {
-          const response = await fetch(
-            `http://localhost:5000/api/posts/${key.id}`,
-            { method: "DELETE" }
-          );
-          if (!response.ok) {
-            throw new Error("Failed to delete the item!");
-          }
-          setCards((prevCards) =>
-            Array.isArray(prevCards)
-              ? prevCards.filter((card) => card.id !== key)
-              : []
-          );
-          console.log("The item was deleted !");
-        } catch (error) {
-          console.error("Error by deleting data:", error);
-        }
-      };
-      books();
-    }, []);
+  const onDelete = async (id) => {
+    try {
+      const response = await deletePost(id);
+      //if (!response.ok) {
+      //  throw new Error("Failed to delete the item!");
+      //}
+      setCards((prevCards) => prevCards.filter((card) => card.id !== id));
+      alert("The item was successfully deleted!");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
   };
 
   // Handle edit navigation
