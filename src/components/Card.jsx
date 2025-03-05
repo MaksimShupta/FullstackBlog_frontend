@@ -1,6 +1,10 @@
-import { CategoryContext } from "../App";
-import { useContext } from "react";
+// import { CategoryContext } from "../App";
+// import { useContext } from "react";
 import { useNavigate } from "react-router";
+import { FaPencilAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaFeather } from "react-icons/fa";
+import { FaTag } from "react-icons/fa";
 
 const Card = ({
     itemKey,
@@ -10,53 +14,65 @@ const Card = ({
     category,
     context,
     onDelete,
+    cover,
 }) => {
-    const { categories } = useContext(CategoryContext);
+    // const { categories } = useContext(CategoryContext);
     const navigate = useNavigate();
     console.log("Card:", itemKey);
 
     const onView = (itemKey) => {
-        // Navigate to the post detail page, e.g., /postdetail/:id
         navigate(`/post/${itemKey}`);
     };
 
     return (
-        <div className="bg-[#282828] text-[#F5F5F5] rounded-xl p-6 border flex flex-col gap-8">
-            <p className="px-4 py-2 bg-[#9E7A67] text-lg rounded-xl font-bold tracking-wider">
-                {title}
-            </p>
-            <div className="flex items-center gap-4">
-                <p className="text-sm">{author}</p>
+        <div className="relative rounded-lg shadow bg-gray-200 flex overflow-hidden">
+            <div className="w-1/2">
+                <img
+                    src={cover}
+                    alt="Note Thumbnail"
+                    className="w-full h-full object-cover"
+                />
             </div>
-            <div className="flex items-center gap-4">
-                <p className="text-sm">{date}</p>
-            </div>
-            <div className="flex items-center gap-4">
-                <p className="text-sm">{category}</p>
-            </div>
-            <div className="flex items-center gap-4">
-                <p className="text-sm">{context}</p>
-            </div>
-            <div className="flex gap-4 mt-2">
-                <button
-                    className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 w-full md:w-auto"
-                    onClick={() => onView(itemKey)}
-                >
-                    View
-                </button>
-                <button
-                    className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 w-full md:w-auto"
-                    onClick={() => {
-                        console.log("Deleting item with key:", itemKey);
-                        if (itemKey) onDelete(itemKey);
-                        else
-                            console.error(
-                                "itemKey is undefined when calling onDelete"
-                            );
-                    }}
-                >
-                    Remove
-                </button>
+
+            <div className="w-1/2 p-6 flex flex-col">
+                <p className="text-base text-gray-500">{date}</p>
+                <h3 className="text-xl text-gray-800 font-bold leading-tight mt-2">
+                    {title}
+                </h3>
+                <p className="text-base text-gray-700 mt-4 line-clamp-3">
+                    {context}
+                </p>
+                <div className="flex items-center gap-1 mt-4">
+                    <FaTag size={12} className="text-gray-700" />
+                    <span className="text-sm text-gray-700">{category}</span>
+                </div>
+
+                <div className="flex items-center gap-1">
+                    <FaFeather size={12} className="text-gray-700" />
+                    <span className="text-sm text-gray-700">{author}</span>
+                </div>
+
+                <div className="absolute bottom-4 right-4 flex items-center gap-4">
+                    <button
+                        className="text-gray-600 hover:text-gray-800"
+                        onClick={() => onView(itemKey)}
+                    >
+                        <FaPencilAlt size={20} />
+                    </button>
+                    <button
+                        className="text-gray-600 hover:text-red-600"
+                        onClick={() => {
+                            console.log("Deleting item with key:", itemKey);
+                            if (itemKey) onDelete(itemKey);
+                            else
+                                console.error(
+                                    "itemKey is undefined when calling onDelete"
+                                );
+                        }}
+                    >
+                        <FaRegTrashAlt size={20} />
+                    </button>
+                </div>
             </div>
         </div>
     );
