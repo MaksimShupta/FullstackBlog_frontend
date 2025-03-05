@@ -6,7 +6,7 @@ import { deletePost } from "../services/postsApi";
 
 //Sketch of cards that will be displayed
 //TODO: Code must be updated and tested
-const Cards = ({ data }) => {
+const Cards = ({ data, searchQuery }) => {
   const [cards, setCards] = useState([]);
   const navigate = useNavigate();
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -37,8 +37,13 @@ const Cards = ({ data }) => {
     if (categoryFilter) {
       filtered = filtered.filter((i) => i.category === categoryFilter);
     }
+    if (searchQuery) {
+      filtered = filtered.filter((e) =>
+        e.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
     setFilteredCards(filtered);
-  }, [categoryFilter, cards]);
+  }, [categoryFilter, searchQuery, cards]);
 
   // Handle deletion
   const onDelete = async (id) => {
@@ -84,20 +89,19 @@ const Cards = ({ data }) => {
         id="items-list"
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4"
       >
-        {Array.isArray(filteredCards) &&
-          filteredCards.map((item) => (
-            <Card
-              key={item.id}
-              itemKey={item.id}
-              author={item.author}
-              title={item.title}
-              date={new Date(item.date).toLocaleDateString("de-DE")}
-              category={item.category}
-              context={item.context}
-              onEdit={() => onEdit(item.id)}
-              onDelete={() => onDelete(item.id)}
-            />
-          ))}
+        {filteredCards.map((item) => (
+          <Card
+            key={item.id}
+            itemKey={item.id}
+            author={item.author}
+            title={item.title}
+            date={new Date(item.date).toLocaleDateString("de-DE")}
+            category={item.category}
+            context={item.context}
+            onEdit={() => onEdit(item.id)}
+            onDelete={() => onDelete(item.id)}
+          />
+        ))}
       </div>
     </div>
   );

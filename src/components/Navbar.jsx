@@ -4,8 +4,19 @@ import { CiSearch } from "react-icons/ci"; //import react from icons
 import { FaTimes } from "react-icons/fa"; // Import close icon
 import { LiaGripLinesVerticalSolid } from "react-icons/lia"; //import react from icons
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false); //state for isSearchOpen
+  const [searchText, setSearchText] = useState("");
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    if (onSearch) {
+      onSearch(searchText);
+    }
+    setIsSearchOpen(false); // Close search bar after submission (optional)
+  };
 
   return (
     <nav className="flex  text-2xl flex-row gap-2 mr-12 text-accent">
@@ -25,8 +36,13 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search book by title..."
+            value={searchText}
+            onChange={handleSearchChange} // Update searchText state
             className="w-full p-2 border rounded-lg bg-primary"
           />
+          <button onClick={handleSearchSubmit} className="p-2 rounded-full">
+            <CiSearch className="w-5 h-5 text-primary" />
+          </button>
           <button
             onClick={() => setIsSearchOpen(false)}
             className="p-2 rounded-full"
