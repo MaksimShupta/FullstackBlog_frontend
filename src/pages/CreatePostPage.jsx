@@ -22,7 +22,7 @@ const CreatePostPage = () => {
     date: currentDate, // Current Date as Default
     cover: "", 
     category: "",
-    description: "",
+    context: "",
   });
 
   const handleCategoryChange = (selectedOption) => {
@@ -106,7 +106,7 @@ const CreatePostPage = () => {
                 onChange={handleChange}
                 name="cover"
                 className="grow w-full"
-                placeholder="Insert Image URL"
+                placeholder="Insert Image URL to add book cover"
                 />
             </label>
 
@@ -142,9 +142,9 @@ const CreatePostPage = () => {
 
             <label className="textarea-custom gap-2 w-full">
               <textarea
-                value={form.description}
+                value={form.context}
                 onChange={handleChange}
-                name="description"
+                name="context"
                 className="grow w-full bg-bgInput h-full"
                 placeholder="Add details about this book"
                 required
