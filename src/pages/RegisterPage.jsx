@@ -1,4 +1,4 @@
-import logo from "../assets/logo.svg"; //importing logo from assets
+import logo from "../assets/logo.png"; //importing logo from assets
 import { useState } from "react"; //import useState from react
 import { FaUser } from "react-icons/fa"; //importing FaUser  from react icon
 import { FaEnvelope } from "react-icons/fa"; //importing  FaEnveloper from react icon
@@ -22,7 +22,7 @@ const RegisterPage = () => {
   };
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-accent">
-      <img src={logo} className="mb-12" />
+      <img src={logo} />
       <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center text-accent mb-6">
           Register

@@ -3,7 +3,7 @@ import Button from "../components/ui/Button";
 import { updatePost } from "../services/postsApi";
 import { useParams } from "react-router";
 import { getPost } from "../services/postsApi.js";
-import EditArticle from "../components/EditArticle.jsx";
+import EditArticle from "../components/EditArticle.jsx"; 
 
 const PostDetailsPage = () => {
     const { id } = useParams();
