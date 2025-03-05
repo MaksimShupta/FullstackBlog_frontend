@@ -12,43 +12,39 @@ import NotFoundPage from "./pages/NotFoundPage"; // Import NotFoundPage
 //Context API, for Categories
 const CategoryContext = createContext();
 export const CategoryProvider = ({ children }) => {
-    const categories = ["Fantasy", "Mystery", "Romance", "Science Fiction"];
-    return (
-        <CategoryContext.Provider value={{ categories }}>
-            {children}
-        </CategoryContext.Provider>
-    );
+    const categories = ["Fantasy", "Mystery", "Romance", "Science fiction"];
+    return <CategoryContext.Provider value={{ categories }}>{children}</CategoryContext.Provider>;
 };
 
 function App() {
+    return (
+        <Router>
+            <CategoryProvider>
+                {" "}
+                {/* Wrapping everything with Router */}
+                <Routes>
+                    {/* MainLayout Route */}
+                    <Route path="/" element={<MainLayout />}>
+                        {/* Home Route */}
+                        <Route index element={<HomePage />} />
+                        {/* create Route */}
+                        {/* <Route path="create" element={<CreatePostPage />} /> */}
+                        {/* post Route */}
+                        <Route path="post/:id" element={<PostDetailsPage />} />
+                        <Route path="category/:category" element={<Category />} />
+                        {/* login Route */}
+                        <Route path="login" element={<LoginPage />} />
+                        {/* register Route */}
+                        <Route path="register" element={<RegisterPage />} />
+                    </Route>
 
-  return (
-    <Router>
-      <CategoryProvider>
-        {" "}
-        {/* Wrapping everything with Router */}
-        <Routes>
-          {/* MainLayout Route */}
-          <Route path="/" element={<MainLayout />}>
-            {/* Home Route */}
-            <Route index element={<HomePage />} />
-            {/* create Route */}
-            {/* <Route path="create" element={<CreatePostPage />} /> */}
-            {/* post Route */}
-            <Route path="post/:id" element={<PostDetailsPage />} />
-            <Route path="category/:category" element={<Category />} />
-            {/* login Route */}
-            <Route path="login" element={<LoginPage />} />
-            {/* register Route */}
-            <Route path="register" element={<RegisterPage />} />
-          </Route>
-
-          {/* NotFound Route */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </CategoryProvider>
-    </Router>
-  );
+                    {/* NotFound Route */}
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </CategoryProvider>
+        </Router>
+    );
+}
 
 export default App;
 export { CategoryContext };
