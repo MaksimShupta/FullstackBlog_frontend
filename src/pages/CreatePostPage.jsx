@@ -4,12 +4,13 @@ import Select from "react-select";
 import Button from "../components/ui/Button";
 import { CategoryContext } from "../App";
 import Navbar from "../components/Navbar";
-import { formatDate } from "../dateUtils";
+import { formatDate } from "../utils/dateUtils";
+import { createPost } from "../services/postsApi"; 
 
-const CreatePostPage = () => {
+const CreatePostPage = (props) => {
   const { categories } = useContext(CategoryContext);
   const navigate = useNavigate();
-  const [displayDate, setDisplayDate] = useState(formatDate(currentDate));
+  const [displayDate, setDisplayDate] = useState(formatDate(new Date().toISOString().split("T")[0]));
   const defaultCoverImage = "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?q=80&w=1585&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const cats = categories.map((key) => ({
@@ -21,9 +22,9 @@ const CreatePostPage = () => {
 
   const [form, setForm] = useState({
     title: "",
-    author: "", 
-    date: currentDate, // Current Date as Default
-    cover: "", 
+    author: "",
+    date: currentDate,
+    cover: "",
     category: "",
     context: "",
   });
@@ -37,14 +38,20 @@ const CreatePostPage = () => {
     setDisplayDate(formatDate(e.target.value));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to save input data
-    navigate("/");
+    try {
+      const newPost = await createPost(form);
+      props.history.push(`/post/${newPost.id}`);
+    } catch (error) {
+      console.error("Error creating post:", error);
+      // error handling:
+      alert("Error creating this post.");
+    }
   };
 
   const handleCancel = () => {
-    navigate("/");
+    props.history.push("/"); 
   };
 
   const handleDateIconClick = () => {
@@ -101,7 +108,7 @@ const CreatePostPage = () => {
                 onClick={handleDateIconClick}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
               >
-                &#x1F4C5; {/* Calender Icon */}
+                &#x1F4C5;
               </button>
             </div>
 
@@ -130,35 +137,13 @@ const CreatePostPage = () => {
               />
             )}
 
-            {/* <Select
+            <Select
               options={cats}
-              placeholder="Select category"
-              getOptionLabel={(e) => (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <img
-                    src={categories[e.value]}
-                    className="w-6 h-6 mr-2"
-                    alt={e.label}
-                  />
-                  {e.label}
-                </div>
-              )}
+              placeholder="Select Genre(s)"
               onChange={handleCategoryChange}
+              value={cats.find((cat) => cat.value === form.category)}
               className="w-full"
-            /> */}
-
-
-// Simple drop down menu for book genre options:
-
-          <Select
-          options={cats}
-          placeholder="Select Genre(s)"
-          onChange={handleCategoryChange}
-          value={cats.find((cat) => cat.value === form.category)}
-          className="w-full"
-          />
-
-
+            />
 
             <label className="textarea-custom gap-2 w-full">
               <textarea
