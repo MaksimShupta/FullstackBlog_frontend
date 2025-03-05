@@ -43,7 +43,8 @@ function App() {
           </Route>
           {/* FetchingError Route */}
           <Route path="500" element={<FetchingErrorPage />} />
-
+          {/* Missing Fields Route */}
+          <Route path="400" element={<MissingFieldsErrorPage />} />
           {/* NotFound Route */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
