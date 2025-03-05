@@ -8,6 +8,9 @@ import { createContext } from "react";
 import LoginPage from "./pages/LoginPage"; //import LoginPage from pages
 import RegisterPage from "./pages/RegisterPage"; //import RegisterPage from pages
 import NotFoundPage from "./pages/NotFoundPage"; // Import NotFoundPage
+// import FetchingErrorPage from "./pages/FetchingErrorPage"; //Import FetchingErrorPage
+// import MissingFieldsErrorPage from "./pages/MissingFieldsErrorPage"; // import MissingFieldsErrorPage
+
 
 //Context API, for Categories
 const CategoryContext = createContext();
@@ -42,9 +45,9 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
           </Route>
           {/* FetchingError Route */}
-          <Route path="500" element={<FetchingErrorPage />} />
+          {/* <Route path="500" element={<FetchingErrorPage />} /> */}
           {/* Missing Fields Route */}
-          <Route path="400" element={<MissingFieldsErrorPage />} />
+          {/* <Route path="400" element={<MissingFieldsErrorPage />} /> */}
           {/* NotFound Route */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
