@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { CategoryContext } from "../App";
 import Select from "react-select";
 import { updatePost } from "../services/postsApi.js";
+import { useNavigate } from "react-router";
 
 function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
   const [form, setForm] = useState({
@@ -10,9 +11,9 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
     category: initialData.category || "",
     context: initialData.context || "",
     cover: initialData.cover || "",
-    date: initialData.date ? formatDate(initialData.date) : "",
+    date: initialData.date || "",
   });
-
+  const navigate = useNavigate();
   const formatDate = (dateString) => {
     const dateObj = new Date(dateString);
     const year = dateObj.getFullYear();
@@ -71,7 +72,7 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
     "Category options:",
     categoryOptions.find((cat) => cat.value === initialData.category)
   );
-  console.log("Form category:", form.category);
+  console.log("Initial date:", form.date);
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-md w-full max-w-md">
@@ -173,7 +174,7 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
             <input
               id="date"
               type="date"
-              value={form.date || ""}
+              value={form.date || initialData.date || ""}
               //onChange={handleChange}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, date: e.target.value }))
