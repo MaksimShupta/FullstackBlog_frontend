@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Select from "react-select";
 import Button from "../components/ui/Button";
 import { CategoryContext } from "../App";
@@ -18,6 +18,7 @@ const CreatePostPage = () => {
 
   const [form, setForm] = useState({
     title: "",
+    author: "", // Neues Feld für den Autor
     date: currentDate, // Current Date as Default
     imageUrl: "",
     category: "",
@@ -62,7 +63,18 @@ const CreatePostPage = () => {
                 onChange={handleChange}
                 name="title"
                 className="grow w-full"
-                placeholder="Book Title"
+                placeholder="Add Article Title"
+                required
+              />
+            </label>
+
+            <label className="input-custom gap-2 w-full">
+              <input
+                value={form.author}
+                onChange={handleChange}
+                name="author"
+                className="grow w-full"
+                placeholder="Add Author"
                 required
               />
             </label>
@@ -115,15 +127,16 @@ const CreatePostPage = () => {
               className="w-full"
             /> */}
 
-// Commented out the Category Drop down menu with icons 
 
-<Select
-  options={cats}
-  placeholder="Select Genre"
-  onChange={handleCategoryChange}
-  value={cats.find((cat) => cat.value === form.category)}
-  className="w-full"
-/>
+// Simple drop down menu for book genre options:
+
+          <Select
+          options={cats}
+          placeholder="Select Genre(s)"
+          onChange={handleCategoryChange}
+          value={cats.find((cat) => cat.value === form.category)}
+          className="w-full"
+          />
 
 
 
@@ -133,7 +146,7 @@ const CreatePostPage = () => {
                 onChange={handleChange}
                 name="description"
                 className="grow w-full bg-bgInput h-full"
-                placeholder="Describe what you are going to do ..."
+                placeholder="Add details about this book"
                 required
               />
             </label>
