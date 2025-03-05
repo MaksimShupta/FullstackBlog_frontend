@@ -25,7 +25,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   return (
-    <nav className="flex  text-2xl flex-row gap-2 mr-12 text-accent">
+    <nav className="flex  text-2xl flex-row gap-4 mr-12 text-accent">
       <div className="hidden lg:flex">
         {!isSearchOpen && (
           <button
@@ -70,14 +70,14 @@ const Navbar = ({ onSearch }) => {
           <Link to="login">Log in</Link>
         </li>
       </ul>
-      <LiaGripLinesVerticalSolid size={34} />
+      {/* <LiaGripLinesVerticalSolid size={34} /> */}
 
-      {/* <ul>
+      <ul>
         <li>
           <Link to="create">Add Article</Link>
         </li>
       </ul>
-      <ul> */}
+      
       
 
       <ul>
