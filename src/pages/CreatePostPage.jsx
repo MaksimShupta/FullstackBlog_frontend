@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Button from "../components/ui/Button";
-import { CategoryContext } from '../context/CategoryContext';
+import { CategoryContext } from "../App";
 import Navbar from '../components/Navbar';
 
 const CreatePostPage = () => {
