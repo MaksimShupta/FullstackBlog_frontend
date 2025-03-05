@@ -1,6 +1,8 @@
 import logo from "../assets/logo.svg"; //importing logo from assets
 import { useState } from "react"; //import useState from react
 import { FaUser, FaLock } from "react-icons/fa"; //import FaUser abd FaLock from react-icons
+import { Link } from "react-router"; //importing Link from react-router
+
 const LoginPage = () => {
   const [email, setEmail] = useState(""); //useState from email
   const [password, setPassword] = useState(""); //useState for password
@@ -55,9 +57,9 @@ const LoginPage = () => {
         <div className="text-center mt-4">
           <p className="text-sm mt-2 text-accent">
             Don't have an account?
-            <a href="#" className="text-accent2 ml-2 hover:underline">
+            <Link to="/register" className="text-accent2 ml-2 hover:underline">
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -6,6 +6,7 @@ import MainLayout from "./layouts/MainLayout"; //import MainLayout from layouts/
 import Category from "./pages/Category";
 import { createContext } from "react";
 import LoginPage from "./pages/LoginPage"; //import LoginPage from pages
+import RegisterPage from "./pages/RegisterPage"; //import RegisterPage from pages
 
 //Context API, for Categories
 const CategoryContext = createContext();
@@ -36,6 +37,8 @@ function App() {
             <Route path="category/:category" element={<Category />} />
             {/* login Route */}
             <Route path="login" element={<LoginPage />} />
+            {/* register Route */}
+            <Route path="register" element={<RegisterPage />} />
           </Route>
         </Routes>
       </CategoryProvider>
