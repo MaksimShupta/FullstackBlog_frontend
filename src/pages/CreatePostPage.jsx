@@ -1,17 +1,16 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router";
 import Select from "react-select";
 import Button from "../components/ui/Button";
 import { CategoryContext } from "../App";
 import Navbar from "../components/Navbar";
 import { formatDate } from "../utils/dateUtils";
-import { createPost } from "../services/postsApi"; 
+import { createPost } from "../services/postsApi";
 
 const CreatePostPage = (props) => {
   const { categories } = useContext(CategoryContext);
-  const navigate = useNavigate();
   const [displayDate, setDisplayDate] = useState(formatDate(new Date().toISOString().split("T")[0]));
   const defaultCoverImage = "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?q=80&w=1585&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  const [categoryError, setCategoryError] = useState(false); 
 
   const cats = categories.map((key) => ({
     value: key,
@@ -40,18 +39,23 @@ const CreatePostPage = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!form.category) {
+      setCategoryError(true);
+      alert("Choose genre");
+      return;
+    }
+    setCategoryError(false); 
     try {
       const newPost = await createPost(form);
       props.history.push(`/post/${newPost.id}`);
     } catch (error) {
       console.error("Error creating post:", error);
-      // error handling:
-      alert("Error creating this post.");
+      alert("Error creating this post."); 
     }
   };
 
   const handleCancel = () => {
-    props.history.push("/"); 
+    props.history.push("/");
   };
 
   const handleDateIconClick = () => {
@@ -140,9 +144,12 @@ const CreatePostPage = (props) => {
             <Select
               options={cats}
               placeholder="Select Genre(s)"
-              onChange={handleCategoryChange}
+              onChange={(selectedOption) => {
+                handleCategoryChange(selectedOption);
+                setCategoryError(false); // reset error
+              }}
               value={cats.find((cat) => cat.value === form.category)}
-              className="w-full"
+              className={`w-full ${categoryError ? "border-red-500 border-2" : ""}`}
             />
 
             <label className="textarea-custom gap-2 w-full">
