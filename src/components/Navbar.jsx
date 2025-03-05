@@ -18,6 +18,12 @@ const Navbar = ({ onSearch }) => {
     setIsSearchOpen(false); // Close search bar after submission (optional)
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearchSubmit();
+    }
+  };
+
   return (
     <nav className="flex  text-2xl flex-row gap-2 mr-12 text-accent">
       <div className="hidden lg:flex">
@@ -38,6 +44,7 @@ const Navbar = ({ onSearch }) => {
             placeholder="Search book by title..."
             value={searchText}
             onChange={handleSearchChange} // Update searchText state
+            onKeyDown={handleKeyDown}
             className="w-full p-2 border rounded-lg bg-primary"
           />
           <button onClick={handleSearchSubmit} className="p-2 rounded-full">
