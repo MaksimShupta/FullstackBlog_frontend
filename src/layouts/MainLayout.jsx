@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div className="bg-white flex flex-col min-h-screen">
       <Header />
-      <main className=" py-4">
+      <main >
         <Outlet />
       </main>
       <Footer />
