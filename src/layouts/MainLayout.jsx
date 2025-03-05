@@ -4,16 +4,16 @@ import Footer from "../components/Footer"; //import Footer
 import { useState } from "react";
 
 const MainLayout = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  return (
-    <div className="bg-white flex flex-col min-h-screen">
-      <Header onSearch={setSearchQuery} />
-      <main>
-        <Outlet context={{ searchQuery }} />
-      </main>
-      <Footer />
-    </div>
-  );
+    const [searchQuery, setSearchQuery] = useState("");
+    return (
+        <div className="bg-accent flex flex-col min-h-screen">
+            <Header onSearch={setSearchQuery} />
+            <main>
+                <Outlet context={{ searchQuery }} />
+            </main>
+            <Footer />
+        </div>
+    );
 };
 
 export default MainLayout;

@@ -25,7 +25,7 @@ const Card = ({
     };
 
     return (
-        <div className="relative rounded-lg shadow bg-gray-200 flex overflow-hidden">
+        <div className="relative rounded-lg shadow bg-primary flex overflow-hidden">
             <div className="w-1/2">
                 <img
                     src={cover}
