@@ -18,7 +18,7 @@ const CreatePostPage = () => {
 
   const [form, setForm] = useState({
     title: "",
-    author: "", // Neues Feld für den Autor
+    author: "", 
     date: currentDate, // Current Date as Default
     imageUrl: "",
     category: "",
