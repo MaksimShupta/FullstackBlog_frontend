@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { getPost } from "../services/postsApi.js";
 import EditArticle from "../components/EditArticle.jsx";
 
+
 const PostDetailsPage = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
