@@ -20,9 +20,9 @@ const CreatePostPage = () => {
     title: "",
     author: "", 
     date: currentDate, // Current Date as Default
-    imageUrl: "",
+    cover: "", 
     category: "",
-    description: "",
+    context: "",
   });
 
   const handleCategoryChange = (selectedOption) => {
@@ -101,13 +101,13 @@ const CreatePostPage = () => {
             </div>
 
             <label className="input-custom gap-2 w-full">
-              <input
-                value={form.imageUrl}
+            <input
+                value={form.cover} 
                 onChange={handleChange}
-                name="imageUrl"
+                name="cover"
                 className="grow w-full"
-                placeholder="Image URL"
-              />
+                placeholder="Insert Image URL to add book cover"
+                />
             </label>
 
             {/* <Select
@@ -142,9 +142,9 @@ const CreatePostPage = () => {
 
             <label className="textarea-custom gap-2 w-full">
               <textarea
-                value={form.description}
+                value={form.context}
                 onChange={handleChange}
-                name="description"
+                name="context"
                 className="grow w-full bg-bgInput h-full"
                 placeholder="Add details about this book"
                 required
