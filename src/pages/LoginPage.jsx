@@ -1,4 +1,4 @@
-import logo from "../assets/logo.svg"; //importing logo from assets
+import logo from "../assets/logo.png"; //importing logo from assets
 import { useState } from "react"; //import useState from react
 import { FaUser, FaLock } from "react-icons/fa"; //import FaUser abd FaLock from react-icons
 import { Link } from "react-router"; //importing Link from react-router
@@ -13,11 +13,14 @@ const LoginPage = () => {
         console.log("log in:", email, password); //console the inputs
     };
 
-    return (
-        <div className="flex flex-col justify-center items-center min-h-screen bg-accent">
-            <img src={logo} className="mb-12" />
-            <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
-                <h2 className="text-2xl font-bold text-center text-accent mb-6">Log in</h2>
+
+  return (
+    <div className="flex flex-col justify-center items-center min-h-screen bg-accent">
+      <img src={logo}  />
+      <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-bold text-center text-accent mb-6">
+          Log in
+        </h2>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div className="flex items-center border rounded-lg px-3 py-2 bg-accent">
