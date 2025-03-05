@@ -3,11 +3,14 @@ import { useNavigate } from "react-router";
 import Select from "react-select";
 import Button from "../components/ui/Button";
 import { CategoryContext } from "../App";
-import Navbar from '../components/Navbar';
+import Navbar from "../components/Navbar";
+import { formatDate } from "../dateUtils";
 
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
   const navigate = useNavigate();
+  const [displayDate, setDisplayDate] = useState(formatDate(currentDate));
+  const defaultCoverImage = "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?q=80&w=1585&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const cats = categories.map((key) => ({
     value: key,
@@ -31,6 +34,7 @@ const CreatePostPage = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setDisplayDate(formatDate(e.target.value));
   };
 
   const handleSubmit = (e) => {
@@ -90,6 +94,7 @@ const CreatePostPage = () => {
                   className="grow w-full"
                   required
                 />
+                <div>{displayDate}</div>
               </label>
               <button
                 type="button"
@@ -101,14 +106,29 @@ const CreatePostPage = () => {
             </div>
 
             <label className="input-custom gap-2 w-full">
-            <input
-                value={form.cover} 
+              <input
+                value={form.cover}
                 onChange={handleChange}
                 name="cover"
                 className="grow w-full"
                 placeholder="Insert Image URL to add book cover"
-                />
+              />
             </label>
+
+            {/* Cover Preview */}
+            {form.cover ? (
+              <img
+                src={form.cover}
+                alt="Cover Preview"
+                className="max-w-xs max-h-40 object-cover"
+              />
+            ) : (
+              <img
+                src={defaultCoverImage}
+                alt="Default Cover"
+                className="max-w-xs max-h-40 object-cover"
+              />
+            )}
 
             {/* <Select
               options={cats}
