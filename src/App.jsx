@@ -41,6 +41,9 @@ function App() {
             {/* register Route */}
             <Route path="register" element={<RegisterPage />} />
           </Route>
+          {/* FetchingError Route */}
+          <Route path="500" element={<FetchingErrorPage />} />
+
           {/* NotFound Route */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
