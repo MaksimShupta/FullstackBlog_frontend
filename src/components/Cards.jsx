@@ -76,7 +76,7 @@ const Cards = ({ data, searchQuery }) => {
                         <button
                             key={cat.value}
                             onClick={() => setCategoryFilter(cat.label)}
-                            className="flex items-center bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+                            className="flex items-center bg-accent hover:bg-accent2 border border-[#DDEB9D] text-primary px-4 py-2 rounded-lg transition"
                         >
                             {cat.label}
                         </button>

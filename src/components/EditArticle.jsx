@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { CategoryContext } from "../App";
 import Select from "react-select";
+import Button from "./ui/Button";
 
 function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
     const [form, setForm] = useState({
@@ -52,12 +53,14 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-md w-full max-w-md">
-                <h2 className="text-xl font-bold mb-4">Edit Article</h2>
+            <div className="bg-primary p-6 rounded-md w-full max-w-md">
+                <h2 className="text-2xl font-bold mb-4 text-center text-accent2">
+                    Edit Article
+                </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label
-                            className="block mb-1 font-semibold"
+                            className="block mb-1 font-semibold text-accent"
                             htmlFor="author"
                         >
                             Author
@@ -67,13 +70,13 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                             type="text"
                             value={form.author || ""}
                             onChange={handleChange}
-                            className="w-full border rounded p-2"
+                            className="w-full border rounded p-2 bg-accent text-neutral-50"
                             placeholder="Enter author name"
                         />
                     </div>
                     <div>
                         <label
-                            className="block mb-1 font-semibold"
+                            className="block mb-1 font-semibold text-accent"
                             htmlFor="title"
                         >
                             Title
@@ -83,18 +86,17 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                             type="text"
                             value={form.title || ""}
                             onChange={handleChange}
-                            className="w-full border rounded p-2"
+                            className="w-full border rounded p-2 bg-accent text-neutral-50"
                             placeholder="Enter article title"
                         />
                     </div>
                     <div>
                         <label
-                            className="block mb-1 font-semibold"
+                            className="block mb-1 font-semibold text-accent"
                             htmlFor="category"
                         >
                             Category
                         </label>
-
                         {categoryOptions.length > 0 && (
                             <Select
                                 options={categoryOptions}
@@ -105,13 +107,33 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                                     ) || null
                                 }
                                 onChange={handleCategoryChange}
-                                className="w-full"
+                                className="w-full text-neutral-50"
+                                styles={{
+                                    control: (baseStyles) => ({
+                                        ...baseStyles,
+                                        backgroundColor: "#27667B",
+                                    }),
+                                    menu: (base) => ({
+                                        ...base,
+                                        backgroundColor: "#27667B",
+                                    }),
+                                    option: (base, { isFocused }) => ({
+                                        ...base,
+                                        backgroundColor: isFocused
+                                            ? "#143D60"
+                                            : "#27667B",
+                                    }),
+                                    singleValue: (base) => ({
+                                        ...base,
+                                        color: "#F9FAFB", // ✅ Fixes the selected value color
+                                    }),
+                                }}
                             />
                         )}
                     </div>
                     <div>
                         <label
-                            className="block mb-1 font-semibold"
+                            className="block mb-1 font-semibold text-accent"
                             htmlFor="context"
                         >
                             Context
@@ -120,14 +142,14 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                             id="context"
                             value={form.context || ""}
                             onChange={handleChange}
-                            className="w-full border rounded p-2"
+                            className="w-full border rounded p-2 bg-accent text-neutral-50"
                             placeholder="Enter article context"
                             rows={4}
                         />
                     </div>
                     <div>
                         <label
-                            className="block mb-1 font-semibold"
+                            className="block mb-1 font-semibold text-accent"
                             htmlFor="cover"
                         >
                             Cover
@@ -137,13 +159,13 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                             type="text"
                             value={form.cover || ""}
                             onChange={handleChange}
-                            className="w-full border rounded p-2"
+                            className="w-full border rounded p-2 bg-accent text-neutral-50"
                             placeholder="Enter cover image URL"
                         />
                     </div>
                     <div>
                         <label
-                            className="block mb-1 font-semibold"
+                            className="block mb-1 font-semibold text-accent"
                             htmlFor="date"
                         >
                             Date
@@ -153,23 +175,34 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                             type="date"
                             value={form.date || ""}
                             onChange={handleChange}
-                            className="w-full border rounded p-2"
+                            className="w-full border rounded p-2 bg-accent text-neutral-50"
                         />
                     </div>
                     <div className="flex justify-end space-x-2 pt-4">
-                        <button
+                        {/* <button
                             type="button"
                             onClick={onClose}
                             className="px-4 py-2 border rounded"
                         >
                             Cancel
-                        </button>
-                        <button
+                        </button> */}
+                        <Button
+                            type="button"
+                            text="Cancel"
+                            onClick={onClose}
+                            className="bg-primary hover:bg-accent2 border border-[#27667B] text-accent hover:text-primary px-6"
+                        />
+                        {/* <button
                             type="submit"
                             className="px-4 py-2 bg-blue-500 text-white rounded"
                         >
                             Confirm
-                        </button>
+                        </button> */}
+                        <Button
+                            type="submit"
+                            text="Confirm"
+                            className="bg-accent hover:bg-accent2 border border-[#DDEB9D] text-primary hover:text-secondary px-6"
+                        />
                     </div>
                 </form>
             </div>
