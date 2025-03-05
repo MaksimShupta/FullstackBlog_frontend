@@ -98,7 +98,7 @@ const CreatePostPage = () => {
               />
             </label>
 
-            <Select
+            {/* <Select
               options={cats}
               placeholder="Select category"
               getOptionLabel={(e) => (
@@ -113,7 +113,19 @@ const CreatePostPage = () => {
               )}
               onChange={handleCategoryChange}
               className="w-full"
-            />
+            /> */}
+
+// Commented out the Category Drop down menu with icons 
+
+<Select
+  options={cats}
+  placeholder="Select Genre"
+  onChange={handleCategoryChange}
+  value={cats.find((cat) => cat.value === form.category)}
+  className="w-full"
+/>
+
+
 
             <label className="textarea-custom gap-2 w-full">
               <textarea
