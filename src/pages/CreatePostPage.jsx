@@ -1,13 +1,16 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Select from "react-select";
 import Button from "../components/ui/Button";
-import { CategoryContext } from '../context/CategoryContext';
-import Navbar from '../components/Navbar';
+import { CategoryContext } from "../App";
+import Navbar from "../components/Navbar";
+import { formatDate } from "../dateUtils";
 
 const CreatePostPage = () => {
   const { categories } = useContext(CategoryContext);
   const navigate = useNavigate();
+  const [displayDate, setDisplayDate] = useState(formatDate(currentDate));
+  const defaultCoverImage = "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?q=80&w=1585&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const cats = categories.map((key) => ({
     value: key,
@@ -18,10 +21,11 @@ const CreatePostPage = () => {
 
   const [form, setForm] = useState({
     title: "",
+    author: "", 
     date: currentDate, // Current Date as Default
-    imageUrl: "",
+    cover: "", 
     category: "",
-    description: "",
+    context: "",
   });
 
   const handleCategoryChange = (selectedOption) => {
@@ -30,6 +34,7 @@ const CreatePostPage = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setDisplayDate(formatDate(e.target.value));
   };
 
   const handleSubmit = (e) => {
@@ -62,7 +67,18 @@ const CreatePostPage = () => {
                 onChange={handleChange}
                 name="title"
                 className="grow w-full"
-                placeholder="Book Title"
+                placeholder="Add Article Title"
+                required
+              />
+            </label>
+
+            <label className="input-custom gap-2 w-full">
+              <input
+                value={form.author}
+                onChange={handleChange}
+                name="author"
+                className="grow w-full"
+                placeholder="Add Author"
                 required
               />
             </label>
@@ -78,6 +94,7 @@ const CreatePostPage = () => {
                   className="grow w-full"
                   required
                 />
+                <div>{displayDate}</div>
               </label>
               <button
                 type="button"
@@ -90,15 +107,30 @@ const CreatePostPage = () => {
 
             <label className="input-custom gap-2 w-full">
               <input
-                value={form.imageUrl}
+                value={form.cover}
                 onChange={handleChange}
-                name="imageUrl"
+                name="cover"
                 className="grow w-full"
-                placeholder="Image URL"
+                placeholder="Insert Image URL to add book cover"
               />
             </label>
 
-            <Select
+            {/* Cover Preview */}
+            {form.cover ? (
+              <img
+                src={form.cover}
+                alt="Cover Preview"
+                className="max-w-xs max-h-40 object-cover"
+              />
+            ) : (
+              <img
+                src={defaultCoverImage}
+                alt="Default Cover"
+                className="max-w-xs max-h-40 object-cover"
+              />
+            )}
+
+            {/* <Select
               options={cats}
               placeholder="Select category"
               getOptionLabel={(e) => (
@@ -113,15 +145,28 @@ const CreatePostPage = () => {
               )}
               onChange={handleCategoryChange}
               className="w-full"
-            />
+            /> */}
+
+
+// Simple drop down menu for book genre options:
+
+          <Select
+          options={cats}
+          placeholder="Select Genre(s)"
+          onChange={handleCategoryChange}
+          value={cats.find((cat) => cat.value === form.category)}
+          className="w-full"
+          />
+
+
 
             <label className="textarea-custom gap-2 w-full">
               <textarea
-                value={form.description}
+                value={form.context}
                 onChange={handleChange}
-                name="description"
+                name="context"
                 className="grow w-full bg-bgInput h-full"
-                placeholder="Describe what you are going to do ..."
+                placeholder="Add details about this book"
                 required
               />
             </label>

@@ -12,15 +12,16 @@ import NotFoundPage from "./pages/NotFoundPage"; // Import NotFoundPage
 //Context API, for Categories
 const CategoryContext = createContext();
 export const CategoryProvider = ({ children }) => {
-  const categories = ["Fantasy", "Mystery", "Romance", "Science fiction"];
-  return (
-    <CategoryContext.Provider value={{ categories }}>
-      {children}
-    </CategoryContext.Provider>
-  );
+    const categories = ["Fantasy", "Mystery", "Romance", "Science Fiction"];
+    return (
+        <CategoryContext.Provider value={{ categories }}>
+            {children}
+        </CategoryContext.Provider>
+    );
 };
 
 function App() {
+
   return (
     <Router>
       <CategoryProvider>
@@ -48,7 +49,6 @@ function App() {
       </CategoryProvider>
     </Router>
   );
-}
 
 export default App;
 export { CategoryContext };
