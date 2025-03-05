@@ -7,6 +7,7 @@ import Category from "./pages/Category";
 import { createContext } from "react";
 import LoginPage from "./pages/LoginPage"; //import LoginPage from pages
 import RegisterPage from "./pages/RegisterPage"; //import RegisterPage from pages
+import NotFoundPage from "./pages/NotFoundPage"; // Import NotFoundPage
 
 //Context API, for Categories
 const CategoryContext = createContext();
@@ -40,6 +41,8 @@ function App() {
             {/* register Route */}
             <Route path="register" element={<RegisterPage />} />
           </Route>
+          {/* NotFound Route */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </CategoryProvider>
     </Router>
