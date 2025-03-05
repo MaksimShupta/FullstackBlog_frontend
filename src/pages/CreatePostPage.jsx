@@ -20,7 +20,7 @@ const CreatePostPage = () => {
     title: "",
     author: "", 
     date: currentDate, // Current Date as Default
-    imageUrl: "",
+    cover: "", 
     category: "",
     description: "",
   });
@@ -101,13 +101,13 @@ const CreatePostPage = () => {
             </div>
 
             <label className="input-custom gap-2 w-full">
-              <input
-                value={form.imageUrl}
+            <input
+                value={form.cover} 
                 onChange={handleChange}
-                name="imageUrl"
+                name="cover"
                 className="grow w-full"
-                placeholder="Image URL"
-              />
+                placeholder="Insert Image URL"
+                />
             </label>
 
             {/* <Select
