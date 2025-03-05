@@ -71,6 +71,15 @@ const Navbar = ({ onSearch }) => {
         </li>
       </ul>
       <LiaGripLinesVerticalSolid size={34} />
+
+      {/* <ul>
+        <li>
+          <Link to="create">Add Article</Link>
+        </li>
+      </ul>
+      <ul> */}
+      
+
       <ul>
         <li>
           <Link to="register">Register</Link>
