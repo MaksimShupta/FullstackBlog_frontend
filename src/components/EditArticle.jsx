@@ -3,45 +3,34 @@ import { CategoryContext } from "../App";
 import Select from "react-select";
 
 function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
-    const formatDate = (dateString) => {
-        const dateObj = new Date(dateString);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
-        const day = String(dateObj.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
-
     const [form, setForm] = useState({
         author: initialData.author || "",
         title: initialData.title || "",
         category: initialData.category || "",
         context: initialData.context || "",
         cover: initialData.cover || "",
-        date: initialData.date ? formatDate(initialData.date) : "",
+        date: initialData.date
+            ? new Date(initialData.date).toISOString().split("T")[0]
+            : "",
     });
 
     const { categories } = useContext(CategoryContext);
-    console.log("Current category:", initialData.category);
-    console.log("Categories:", categories);
-    console.log(
-        "Result:",
-        categories.find((i) => i === initialData.category)
-    );
     const categoryOptions = categories
         ? Object.keys(categories).map((key) => ({
               label: categories[key],
-              value: categories[key],
+              value: key,
           }))
         : [];
-    console.log("caegory options start:", categoryOptions);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        const { id, value } = e.target;
+        console.log("date here", id);
+        console.log("date value here", value);
+        setForm((prev) => ({ ...prev, [id]: value }));
     };
 
     const handleCategoryChange = (selectedOption) => {
-        setForm((prev) => ({ ...prev, category: selectedOption.value }));
+        setForm((prev) => ({ ...prev, category: selectedOption.label }));
     };
 
     if (!isOpen) return null;
@@ -52,14 +41,14 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
         alert("The item was successfully updated!");
     };
 
-    console.log("Current category:", initialData.category);
-    console.log("Categories:", categoryOptions);
-    console.log(
-        "Category options:",
-        categoryOptions.find((cat) => cat.value === initialData.category)
-    );
-    console.log("Initial date:", form.date);
-    console.log("Category Here", categoryOptions);
+    // console.log("Current category:", initialData.category);
+    // console.log("Categories:", categoryOptions);
+    // console.log(
+    //     "Category options:",
+    //     categoryOptions.find((cat) => cat.label === initialData.category)
+    // );
+    // console.log("Initial date:", form.date);
+    // console.log("Category Here", categoryOptions);
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -112,7 +101,7 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                                 placeholder="Select category"
                                 value={
                                     categoryOptions.find(
-                                        (cat) => cat.value === form.category
+                                        (cat) => cat.label === form.category
                                     ) || null
                                 }
                                 onChange={handleCategoryChange}
@@ -162,7 +151,7 @@ function EditArticle({ isOpen, onClose, onConfirm, initialData = {} }) {
                         <input
                             id="date"
                             type="date"
-                            value={form.date || initialData.date || ""}
+                            value={form.date || ""}
                             onChange={handleChange}
                             className="w-full border rounded p-2"
                         />

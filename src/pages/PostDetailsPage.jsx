@@ -44,14 +44,6 @@ const PostDetailsPage = () => {
         return <div>Loading...</div>;
     }
 
-    const formatDate = (dateString) => {
-        const dateObj = new Date(dateString);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
-        const day = String(dateObj.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
-
     return (
         <div className="w-auto mx-auto p-6">
             <div className="card rounded-lg">
@@ -71,7 +63,10 @@ const PostDetailsPage = () => {
                                 {post.title}
                             </h2>
                             <p className="text-gray-500 text-sm mb-4">
-                                {formatDate(post.date)} | Article ID {post.id}
+                                {new Date(post.date)
+                                    .toLocaleDateString("en-GB")
+                                    .replace(/\//g, "-") + " "}
+                                | Article ID {post.id}
                             </p>
 
                             <p className="text-gray-700 leading-relaxed mb-6 flex-1">
