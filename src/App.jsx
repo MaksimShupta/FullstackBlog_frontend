@@ -21,23 +21,19 @@ function App() {
         <Router>
             <CategoryProvider>
                 <Routes>
-                    {/* Login Page Route */}
+                    {/* Public Routes */}
                     <Route path="/" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
 
-                    {/* Protected Routes (HomePage, etc.) */}
-                    <Route path="/" element={<MainLayout />}>
-                        {/* Home Route */}
+                    {/* Protected Routes inside MainLayout */}
+                    <Route element={<MainLayout />}>
                         <Route path="/home" element={<HomePage />} />
-                        {/* Create Route */}
-                        <Route path="create" element={<CreatePostPage />} />
-                        {/* Post Route */}
-                        <Route path="post/:id" element={<PostDetailsPage />} />
-                        <Route path="category/:category" element={<Category />} />
-                        {/* Register Route */}
-                        <Route path="register" element={<RegisterPage />} />
+                        <Route path="/create" element={<CreatePostPage />} />
+                        <Route path="/post/:id" element={<PostDetailsPage />} />
+                        <Route path="/category/:category" element={<Category />} />
                     </Route>
 
-                    {/* NotFound Route */}
+                    {/* Not Found Route */}
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </CategoryProvider>

@@ -27,7 +27,8 @@ const Navbar = ({ onSearch }) => {
     const cancelSearch = () => {
         setIsSearchOpen(false);
         setSearchText("");
-        navigate("/home");
+        window.location.reload();
+        //navigate("/home");
     };
     return (
         <nav className="flex  text-2xl flex-row gap-4 mr-12 text-accent">
@@ -67,7 +68,9 @@ const Navbar = ({ onSearch }) => {
 
             <ul>
                 <li className="font-extrabold ml-20 md:ml-0">
-                    <Link to="/home">Home</Link>
+                    <Link to="/home" onClick={() => window.location.reload()}>
+                        Home
+                    </Link>
                 </li>
             </ul>
 
