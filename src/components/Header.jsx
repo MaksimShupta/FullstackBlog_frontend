@@ -1,4 +1,5 @@
-import logo from "../assets/logo.png"; //importing logo from assets
+// import logo from "../assets/logo.png"; //importing logo from assets
+import logo from "../assets/Fiction-Addiction-logo-img-txt.svg"; //importing new logo from assets
 import Navbar from "./Navbar"; //importing Navbar component
 
 const Header = ({ onSearch }) => {
