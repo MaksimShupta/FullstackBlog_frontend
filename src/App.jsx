@@ -20,21 +20,20 @@ function App() {
     return (
         <Router>
             <CategoryProvider>
-                {" "}
-                {/* Wrapping everything with Router */}
                 <Routes>
-                    {/* MainLayout Route */}
+                    {/* Login Page Route */}
+                    <Route path="/" element={<LoginPage />} />
+
+                    {/* Protected Routes (HomePage, etc.) */}
                     <Route path="/" element={<MainLayout />}>
                         {/* Home Route */}
-                        <Route index element={<HomePage />} />
-                        {/* create Route */}
+                        <Route path="/home" element={<HomePage />} />
+                        {/* Create Route */}
                         <Route path="create" element={<CreatePostPage />} />
-                        {/* post Route */}
+                        {/* Post Route */}
                         <Route path="post/:id" element={<PostDetailsPage />} />
                         <Route path="category/:category" element={<Category />} />
-                        {/* login Route */}
-                        <Route path="login" element={<LoginPage />} />
-                        {/* register Route */}
+                        {/* Register Route */}
                         <Route path="register" element={<RegisterPage />} />
                     </Route>
 

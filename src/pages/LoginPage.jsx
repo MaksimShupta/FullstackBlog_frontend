@@ -31,9 +31,8 @@ const LoginPage = () => {
             console.log("Log-in response:", resp);
 
             if (resp) {
-                navigate("/dashboard"); // Navigate to dashboard on successful login
                 alert("You successfully logged in!");
-                navigate("/");
+                navigate("/home");
             }
         } catch (error) {
             console.error("Log-in failed!", error);
