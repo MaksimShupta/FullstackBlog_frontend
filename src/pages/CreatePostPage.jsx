@@ -58,7 +58,7 @@ const CreatePostPage = () => {
 
             console.log("newPost", newPost);
             alert("Successfully added this post.");
-            navigate("/");
+            navigate("/home");
         } catch (error) {
             console.error("Error creating post:", error);
             alert("Error creating this post.");
