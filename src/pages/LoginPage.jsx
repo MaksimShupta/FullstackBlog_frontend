@@ -20,12 +20,11 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         //navigate("/");
 
-        const filledOutField = Object.entries(formData).find(([value]) => !value);
-        if (filledOutField) {
-            alert(`Please fill in the ${filledOutField[0]} field.`);
+        const emptyField = Object.entries(formData).find(([key, value]) => !value);
+        if (emptyField) {
+            alert(`Please fill in the ${emptyField[0]} field.`);
             return;
         }
 
@@ -53,8 +52,8 @@ const LoginPage = () => {
                         <input
                             type="email"
                             placeholder="Email"
-                            value={email}
-                            onChange={(e) => handleChange(e.target.value)}
+                            value={formData.email}
+                            onChange={(e) => handleChange}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -65,8 +64,8 @@ const LoginPage = () => {
                         <input
                             type="password"
                             placeholder="Password"
-                            value={password}
-                            onChange={(e) => handleChange(e.target.value)}
+                            value={formData.password}
+                            onChange={(e) => handleChange}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
