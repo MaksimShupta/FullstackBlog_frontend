@@ -4,24 +4,21 @@ import { FaUser, FaLock } from "react-icons/fa"; //import FaUser abd FaLock from
 import { Link, useNavigate } from "react-router"; //importing Link from react-router
 import { getUser } from "../services/usersApi";
 const LoginPage = () => {
-    //const [email, setEmail] = useState(""); //useState from email
-    //const [password, setPassword] = useState(""); //useState for password
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
     const navigate = useNavigate();
-    //handle login
+
+    // Handle input changes
     const handleChange = (e) => {
-        //e.preventDefault(); //prevent default submission
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        //console.log("log in:", email, password); //console the inputs
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        //navigate("/");
 
+        // Check for empty fields
         const emptyField = Object.entries(formData).find(([key, value]) => !value);
         if (emptyField) {
             alert(`Please fill in the ${emptyField[0]} field.`);
@@ -32,8 +29,12 @@ const LoginPage = () => {
             const resp = await getUser(formData.email, formData.password);
             console.log("username:", formData.email);
             console.log("Log-in response:", resp);
-            navigate(0);
-            alert("You successfully logged in!");
+
+            if (resp) {
+                navigate("/dashboard"); // Navigate to dashboard on successful login
+                alert("You successfully logged in!");
+                navigate("/");
+            }
         } catch (error) {
             console.error("Log-in failed!", error);
             alert("Log-in failed. Please try again.");
@@ -42,7 +43,7 @@ const LoginPage = () => {
 
     return (
         <div className="flex flex-col justify-start items-center mt-12 min-h-screen bg-accent">
-            <img src={logo} className="w-[12rem] h-[12rem]" />
+            <img src={logo} className="w-[12rem] h-[12rem]" alt="Logo" />
             <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
                 <h2 className="text-2xl font-bold text-center text-accent mb-6">Log in</h2>
 
@@ -51,9 +52,10 @@ const LoginPage = () => {
                         <FaUser className="text-primary" />
                         <input
                             type="email"
+                            name="email" // Ensure the name is set
                             placeholder="Email"
                             value={formData.email}
-                            onChange={(e) => handleChange(e)}
+                            onChange={handleChange} // Directly pass handleChange
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -63,9 +65,10 @@ const LoginPage = () => {
                         <FaLock className="text-primary" />
                         <input
                             type="password"
+                            name="password" // Ensure the name is set
                             placeholder="Password"
                             value={formData.password}
-                            onChange={(e) => handleChange(e)}
+                            onChange={handleChange} // Directly pass handleChange
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
