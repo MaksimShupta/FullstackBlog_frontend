@@ -1,4 +1,5 @@
-import logo from "../assets/logo.png"; //importing logo from assets
+// import logo from "../assets/logo.png"; //importing logo from assets
+import logo from "../assets/Fiction-Addiction-logo-vertical-light.svg"; //importing new logo from assets
 import { useState } from "react"; //import useState from react
 import { FaUser, FaLock } from "react-icons/fa"; //import FaUser abd FaLock from react-icons
 import { Link, useNavigate } from "react-router"; //importing Link from react-router
