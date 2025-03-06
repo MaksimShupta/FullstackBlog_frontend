@@ -67,7 +67,7 @@ const Navbar = ({ onSearch }) => {
 
             <ul>
                 <li className="font-extrabold ml-20 md:ml-0">
-                    <Link to="/">Home</Link>
+                    <Link to="/home">Home</Link>
                 </li>
             </ul>
 
