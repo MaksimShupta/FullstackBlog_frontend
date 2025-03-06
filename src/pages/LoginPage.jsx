@@ -53,7 +53,7 @@ const LoginPage = () => {
                             type="email"
                             placeholder="Email"
                             value={formData.email}
-                            onChange={(e) => handleChange}
+                            onChange={(e) => handleChange(e)}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -65,7 +65,7 @@ const LoginPage = () => {
                             type="password"
                             placeholder="Password"
                             value={formData.password}
-                            onChange={(e) => handleChange}
+                            onChange={(e) => handleChange(e)}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
