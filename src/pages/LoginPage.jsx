@@ -15,8 +15,8 @@ const LoginPage = () => {
 
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-accent">
-      <img src={logo}  />
+    <div className="flex flex-col justify-start items-center mt-12 min-h-screen bg-accent">
+      <img src={logo}   className="w-[12rem] h-[12rem]" />
       <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center text-accent mb-6">
           Log in
