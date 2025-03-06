@@ -1,26 +1,51 @@
 import logo from "../assets/logo.png"; //importing logo from assets
 import { useState } from "react"; //import useState from react
 import { FaUser, FaLock } from "react-icons/fa"; //import FaUser abd FaLock from react-icons
-import { Link } from "react-router"; //importing Link from react-router
-
+import { Link, useNavigate } from "react-router"; //importing Link from react-router
+import { getUser } from "../services/usersApi";
 const LoginPage = () => {
-    const [email, setEmail] = useState(""); //useState from email
-    const [password, setPassword] = useState(""); //useState for password
-
+    //const [email, setEmail] = useState(""); //useState from email
+    //const [password, setPassword] = useState(""); //useState for password
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+    const navigate = useNavigate();
     //handle login
-    const handleLogin = (e) => {
-        e.preventDefault(); //prevent default submission
-        console.log("log in:", email, password); //console the inputs
+    const handleChange = (e) => {
+        //e.preventDefault(); //prevent default submission
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        //console.log("log in:", email, password); //console the inputs
     };
 
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-  return (
-    <div className="flex flex-col justify-start items-center mt-12 min-h-screen bg-accent">
-      <img src={logo}   className="w-[12rem] h-[12rem]" />
-      <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold text-center text-accent mb-6">
-          Log in
-        </h2>
+        //navigate("/");
+
+        const filledOutField = Object.entries(formData).find(([value]) => !value);
+        if (filledOutField) {
+            alert(`Please fill in the ${filledOutField[0]} field.`);
+            return;
+        }
+
+        try {
+            const resp = await getUser(formData.email, formData.password);
+            console.log("username:", formData.email);
+            console.log("Log-in response:", resp);
+            navigate(0);
+            alert("You successfully logged in!");
+        } catch (error) {
+            console.error("Log-in failed!", error);
+            alert("Log-in failed. Please try again.");
+        }
+    };
+
+    return (
+        <div className="flex flex-col justify-start items-center mt-12 min-h-screen bg-accent">
+            <img src={logo} className="w-[12rem] h-[12rem]" />
+            <div className="bg-primary p-8 rounded-lg shadow-lg w-96">
+                <h2 className="text-2xl font-bold text-center text-accent mb-6">Log in</h2>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div className="flex items-center border rounded-lg px-3 py-2 bg-accent">
@@ -29,7 +54,7 @@ const LoginPage = () => {
                             type="email"
                             placeholder="Email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => handleChange(e.target.value)}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -41,7 +66,7 @@ const LoginPage = () => {
                             type="password"
                             placeholder="Password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => handleChange(e.target.value)}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
