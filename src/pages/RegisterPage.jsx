@@ -4,22 +4,50 @@ import { useState } from "react"; //import useState from react
 import { FaUser } from "react-icons/fa"; //importing FaUser  from react icon
 import { FaEnvelope } from "react-icons/fa"; //importing  FaEnveloper from react icon
 import { FaLock } from "react-icons/fa"; //importing FaLock from react icon
-import { Link } from "react-router"; //importing Link from react-router
+import { Link, useNavigate } from "react-router"; //importing Link from react-router
+import { createUser } from "../services/usersApi";
 
 const RegisterPage = () => {
-    const [name, setName] = useState(""); //useState for name
-    const [email, setEmail] = useState(""); //useState for email
-    const [password, setPassword] = useState(""); //useState for password
-    const [confirmPassword, setConfirmPassword] = useState(""); //useState for confirm password
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+        fullname: "",
+        confirmPassword: "",
+    });
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     //handle registration
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault(); //prevent default submission
-        if (password !== confirmPassword) {
+        console.log("password:", formData.password, formData.confirmPassword);
+        if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match!"); // alert if password are not the same
             return;
         }
-        console.log("registerer:", name, email, password); //console the inputs
+        const emptyField = Object.entries(formData).find(([key, value]) => !value);
+        if (emptyField) {
+            alert(`Please fill in the ${emptyField[0]} field.`);
+            return;
+        }
+
+        console.log("registered:", formData.fullname, formData.email, formData.password); //console the inputs
+
+        try {
+            const resp = await createUser(formData.email, formData.password, formData.fullname);
+            console.log("response:", resp);
+
+            if (resp) {
+                alert("You successfully signed up!");
+                navigate("/");
+            }
+        } catch (error) {
+            console.error("Log-in failed!", error);
+            alert("Log-in failed. Please try again.");
+        }
     };
     return (
         <div className="flex flex-col justify-start items-center mt-12 min-h-screen bg-accent">
@@ -32,9 +60,10 @@ const RegisterPage = () => {
                         <FaUser className="text-primary" />
                         <input
                             type="text"
+                            name="fullname"
                             placeholder="Full Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={formData.fullname}
+                            onChange={handleChange}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -44,9 +73,10 @@ const RegisterPage = () => {
                         <FaEnvelope className="text-primary" />
                         <input
                             type="email"
+                            name="email"
                             placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={handleChange}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -56,9 +86,10 @@ const RegisterPage = () => {
                         <FaLock className="text-primary" />
                         <input
                             type="password"
+                            name="password"
                             placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={handleChange}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />
@@ -68,9 +99,10 @@ const RegisterPage = () => {
                         <FaLock className="text-primary" />
                         <input
                             type="password"
+                            name="confirmPassword"
                             placeholder="Confirm Password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
                             required
                             className="w-full pl-2 bg-transparent outline-none"
                         />

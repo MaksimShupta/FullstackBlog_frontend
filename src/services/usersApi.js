@@ -28,3 +28,37 @@ export const getUser = async (email, password) => {
         console.error("Error fetching user:", error);
     }
 };
+
+export const createUser = async (email, password, fullname) => {
+    try {
+        console.log("path:", usersPath);
+        console.log("Sending data to the API:", { email, password, fullname });
+        const response = await fetch(usersPath, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password, fullname }),
+        });
+        console.log("user response here", response);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Error response:", errorText);
+
+            if (response.status === 400) {
+                console.error("Bad request:", errorText);
+            } else if (response.status === 401) {
+                console.error("Unauthorized:", errorText);
+            } else if (response.status >= 500) {
+                console.error("Server error:", errorText);
+            }
+            return;
+        }
+        const data = await response.json();
+        console.log("Fetched Post:", data);
+        return data;
+    } catch (error) {
+        console.error("Error fetching user:", error);
+    }
+};

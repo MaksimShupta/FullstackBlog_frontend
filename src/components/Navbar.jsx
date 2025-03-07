@@ -30,6 +30,10 @@ const Navbar = ({ onSearch }) => {
         window.location.reload();
         //navigate("/home");
     };
+    const handleHomeClick = () => {
+        window.location.reload();
+    };
+
     return (
         <nav className="flex  text-2xl flex-row gap-4 mr-12 text-accent">
             <div className="hidden lg:flex">
@@ -68,7 +72,7 @@ const Navbar = ({ onSearch }) => {
 
             <ul>
                 <li className="font-extrabold ml-20 md:ml-0">
-                    <Link to="/home" onClick={() => window.location.reload()}>
+                    <Link to="/home" onClick={handleHomeClick}>
                         Home
                     </Link>
                 </li>
